@@ -13,9 +13,18 @@ class SudokuValidator
      */
     public function isValid(array $board): bool
     {
+        $board90 = [];
         foreach ($board as $row) {
             if ($this->hasListDuplications($row)) {
                 return false;
+            }
+
+            foreach ($row as $columnNum => $cell) {
+                if (isset($board90[$columnNum][$cell]) && $cell !== "." ) {
+                    return false;
+                }
+
+                $board90[$columnNum][$cell] = true;
             }
         }
 
